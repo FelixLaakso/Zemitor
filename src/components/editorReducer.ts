@@ -73,7 +73,7 @@ export function editorReducer(
                     [state.selectedId]: {
                         ...state.elements[state.selectedId],
                         style: {
-                            ...state.elements[state.selectedId].style,
+                            ...state.elements[state.selectedId]?.style,
                             left: action.x + "px",
                             top: action.y + "px"
                         }

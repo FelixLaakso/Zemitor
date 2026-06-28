@@ -49,6 +49,8 @@ export function useEditor() {
     const dragStart = (e: React.PointerEvent<HTMLElement>) => {
         if (!(e.target instanceof HTMLElement)) return;
 
+        if (e.target === e.currentTarget) return;
+
         const currentElement = e.target;
         if (!currentElement) return;
 
@@ -72,6 +74,7 @@ export function useEditor() {
     }
 
     const dragMove = (e: React.PointerEvent<HTMLElement>) => {
+        if (!(e.target instanceof HTMLElement)) return;
         if (!dragState.current) return;
 
         const parentRect = dragState.current.parent.getBoundingClientRect();
@@ -91,6 +94,7 @@ export function useEditor() {
     }
 
     const dragEnd = (e: React.PointerEvent<HTMLElement>) => {
+        if (!(e.target instanceof HTMLElement)) return;
         if (!dragState.current) return;
 
         dispatch({
@@ -103,14 +107,13 @@ export function useEditor() {
     }
 
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-        if (e.target instanceof HTMLElement) {
-            if (e.target === e.currentTarget) return;
-            dispatch({
-                type: EditorAction.Select,
-                id: e.target.id
-            });
-        }
-    };
+        if (!(e.target instanceof HTMLElement)) return;
+        if (e.target === e.currentTarget) return;
+        dispatch({
+            type: EditorAction.Select,
+            id: e.target.id
+        });
+    }
 
     const elementRefs = useRef(
         new Map<string, HTMLElement>()
