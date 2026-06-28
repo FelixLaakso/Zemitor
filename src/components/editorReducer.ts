@@ -87,6 +87,33 @@ export function editorReducer(
                 selectedId: action.id
             };
 
+        case EditorAction.SetWidthUnit:
+            if (!state.selectedId) throw new Error();
+
+            return {
+                ...state,
+                elements: {
+                    ...state.elements,
+                    [state.selectedId]: {
+                        ...state.elements[state.selectedId],
+                        widthUnit: action.unit
+                    }
+                }
+            };
+
+        case EditorAction.SetHeightUnit:
+            if (!state.selectedId) throw new Error();
+            return {
+                ...state,
+                elements: {
+                    ...state.elements,
+                    [state.selectedId]: {
+                        ...state.elements[state.selectedId],
+                        heightUnit: action.unit
+                    }
+                }
+            };
+
         default:
             return state;
     }
