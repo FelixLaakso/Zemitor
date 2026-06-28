@@ -18,24 +18,38 @@ export function useEditor() {
         });
     };
 
-    const setWidth = (width: string) => {
+    const setWidth = (width: number) => {
         dispatch({
             type: EditorAction.SetWidth,
             width: width
         });
     };
 
-    const setHeight = (height: string) => {
+    const setWidthUnit = (unit: string) => {
+        dispatch({
+            type: EditorAction.SetWidthUnit,
+            unit: unit
+        });
+    }
+
+    const setHeight = (height: number) => {
         dispatch({
             type: EditorAction.SetHeight,
             height: height
         });
     };
 
+    const setHeightUnit = (unit: string) => {
+        dispatch({
+            type: EditorAction.SetHeightUnit,
+            unit: unit
+        });
+    }
+
     const dragStart = (e: React.PointerEvent<HTMLElement>) => {
         if (!(e.target instanceof HTMLElement)) return;
 
-        const currentElement = document.getElementById(e.target.id);
+        const currentElement = e.target;
         if (!currentElement) return;
 
         dispatch({
@@ -88,24 +102,6 @@ export function useEditor() {
         dragState.current = null;
     }
 
-    const preview = () => {
-        return (
-            <div id="zemitor-preview"
-                onPointerDown={dragStart}
-                onPointerMove={dragMove}
-                onPointerUp={dragEnd}
-                onClick={handleClick}
-                style={{ cursor: dragState.current ? "grabbing" : "grab" }}>
-                {
-                    Object.entries(state.elements).map(([id, element]) => (
-                        <ElementRenderer key={id} element={element} />
-                    ))
-                }
-            </div>
-        )
-
-    };
-
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
         if (e.target instanceof HTMLElement) {
             if (e.target === e.currentTarget) return;
@@ -116,16 +112,32 @@ export function useEditor() {
         }
     };
 
+    const elementRefs = useRef(
+        new Map<string, HTMLElement>()
+    );
+
+    const registerElement = (
+        id: string,
+        element: HTMLElement | null
+    ) => {
+        if (element)
+            elementRefs.current.set(id, element);
+        else
+            elementRefs.current.delete(id);
+    };
+
     return {
         state,
-        dispatch,
+        elementRefs,
 
-        dragStart,
-        dragMove,
-        dragEnd,
+        dispatch,
         addElement,
         setWidth,
         setHeight,
-        preview
+        registerElement,
+        dragStart,
+        dragMove,
+        dragEnd,
+        handleClick
     };
 }

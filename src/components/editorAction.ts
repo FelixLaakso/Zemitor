@@ -5,5 +5,7 @@ export enum EditorAction {
     MoveElement = "MOVE_ELEMENT",
     ResizeElement = "RESIZE_ELEMENT",
     SetWidth = "SET_WIDTH",
-    SetHeight = "SET_HEIGHT"
+    SetWidthUnit = "SET_WIDTH_UNIT",
+    SetHeight = "SET_HEIGHT",
+    SetHeightUnit = "SET_HEIGHT_UNIT",
 }

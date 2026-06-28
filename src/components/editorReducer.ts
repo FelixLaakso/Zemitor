@@ -11,13 +11,16 @@ export function editorReducer(
         case EditorAction.AddElement:
             const newElement: ElementDef = {
                 id: `element-${Date.now()}`,
+                x: 0,
+                y: 0,
+                position: "absolute",
+                display: "block",
+                width: 100,
+                height: 100,
+                widthUnit: "px",
+                heightUnit: "px",
                 style: {
-                    width: "100px",
-                    height: "100px",
-                    backgroundColor: "red",
-                    position: "absolute",
-                    left: "0px",
-                    top: "0px",
+                    backgroundColor: "red"
                 },
                 children: []
             };
@@ -41,10 +44,7 @@ export function editorReducer(
                     ...state.elements,
                     [state.selectedId]: {
                         ...state.elements[state.selectedId],
-                        style: {
-                            ...state.elements[state.selectedId].style,
-                            width: action.width
-                        }
+                        width: action.width,
                     }
                 }
             };
@@ -58,10 +58,7 @@ export function editorReducer(
                     ...state.elements,
                     [state.selectedId]: {
                         ...state.elements[state.selectedId],
-                        style: {
-                            ...state.elements[state.selectedId].style,
-                            height: action.height
-                        }
+                        height: action.height,
                     }
                 }
             };
@@ -77,8 +74,8 @@ export function editorReducer(
                         ...state.elements[state.selectedId],
                         style: {
                             ...state.elements[state.selectedId].style,
-                            left: action.x,
-                            top: action.y
+                            left: action.x + "px",
+                            top: action.y + "px"
                         }
                     }
                 }
