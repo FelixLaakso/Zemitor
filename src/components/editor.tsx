@@ -10,35 +10,11 @@ export function Editor() {
             <div className="inputs">
                 <div className="half">
                     <input type="number" name="width" value={editor.state.elements[editor.state.selectedId ?? ""]?.width ?? ""} onChange={(e) => editor.setWidth(e.target.valueAsNumber)} placeholder="Width" />
-                    <div className="radio-group">
-                        <label className="radio">
-                            <input type="radio" name="widthUnit" checked={editor.state.elements[editor.state.selectedId ?? ""]?.widthUnit === "px"} onChange={() => editor.setWidthUnit("px")} />
-                            <span></span>
-                            px
-                        </label>
-
-                        <label className="radio">
-                            <input type="radio" name="widthUnit" checked={editor.state.elements[editor.state.selectedId ?? ""]?.widthUnit === "%"} onChange={() => editor.setWidthUnit("%")} />
-                            <span></span>
-                            %
-                        </label>
-                    </div>
+                    <input type="text" name="widthUnit" value={editor.state.elements[editor.state.selectedId ?? ""]?.widthUnit ?? ""} onChange={(e) => editor.setWidthUnit(e.target.value)} placeholder="Unit" />
                 </div>
                 <div className="half">
                     <input type="number" name="height" value={editor.state.elements[editor.state.selectedId ?? ""]?.height ?? ""} onChange={(e) => editor.setHeight(e.target.valueAsNumber)} placeholder="Height" />
-                    <div className="radio-group">
-                        <label className="radio">
-                            <input type="radio" name="heightUnit" checked={editor.state.elements[editor.state.selectedId ?? ""]?.heightUnit === "px"} onChange={() => editor.setHeightUnit("px")} />
-                            <span></span>
-                            px
-                        </label>
-
-                        <label className="radio">
-                            <input type="radio" name="heightUnit" checked={editor.state.elements[editor.state.selectedId ?? ""]?.heightUnit === "%"} onChange={() => editor.setHeightUnit("%")} />
-                            <span></span>
-                            %
-                        </label>
-                    </div>
+                    <input type="text" name="heightUnit" value={editor.state.elements[editor.state.selectedId ?? ""]?.heightUnit ?? ""} onChange={(e) => editor.setHeightUnit(e.target.value)} placeholder="Unit" />
                 </div>
                 <button onClick={editor.addElement}>Add Element</button>
             </div>
