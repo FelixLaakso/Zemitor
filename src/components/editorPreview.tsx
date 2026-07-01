@@ -13,13 +13,9 @@ export function Preview({ editor }: PreviewProps) {
             onPointerMove={editor.dragMove}
             onPointerUp={editor.dragEnd}
         >
-            {Object.values(editor.state.elements).map((element) => (
-                <ElementRenderer
-                    key={element.id}
-                    editor={editor}
-                    element={element}
-                />
-            ))}
+            <ElementRenderer
+                editor={editor}
+            />
         </div>
     );
 }

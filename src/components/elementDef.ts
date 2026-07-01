@@ -14,6 +14,4 @@ export interface ElementDef {
     heightUnit: string;
 
     style: CSSProperties;
-
-    children: ElementDef[];
 }

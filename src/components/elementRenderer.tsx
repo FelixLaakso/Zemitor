@@ -1,15 +1,31 @@
-import type { ElementDef } from "./elementDef";
 import type { useEditor } from "./useEditor";
 
 type Props = {
     editor: ReturnType<typeof useEditor>;
-    element: ElementDef;
+    elementId?: string;
 };
 
 export function ElementRenderer({
     editor,
-    element,
+    elementId
 }: Props) {
+
+    if (!elementId) {
+        return (
+            <>
+                {
+                    editor.state.tree.rootIds.map((rootId) => (
+                        <ElementRenderer
+                            editor={editor}
+                            elementId={rootId}
+                        />
+                    ))
+                }
+            </>
+        );
+    }
+
+    const element = editor.state.elements[elementId];
 
     const parsedStyle: React.CSSProperties = {
         ...element.style,
@@ -29,11 +45,10 @@ export function ElementRenderer({
             id={element.id}
             style={parsedStyle}
         >
-            {element.children?.map((child) => (
+            {editor.state.tree.children[element.id]?.map((child) => (
                 <ElementRenderer
-                    key={child.id}
                     editor={editor}
-                    element={child}
+                    elementId={child}
                 />
             ))}
         </div>

@@ -21,9 +21,17 @@ export function editorReducer(
                 heightUnit: "px",
                 style: {
                     backgroundColor: "red"
-                },
-                children: []
+                }
             };
+
+            const tree = {
+                ...state.tree,
+                rootIds: [...state.tree.rootIds, newElement.id],
+                parent: {
+                    ...state.tree.parent,
+                    [newElement.id]: null
+                },
+            }
 
             const newState = {
                 ...state,
@@ -31,6 +39,7 @@ export function editorReducer(
                     ...state.elements,
                     [newElement.id]: newElement,
                 },
+                tree: tree
             };
 
             return newState;
